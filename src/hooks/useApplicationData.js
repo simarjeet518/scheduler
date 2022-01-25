@@ -25,6 +25,7 @@ export default function useApplicationData(initial) {
   const setDay = day => setState({ ...state, day });
 
   function cancelInterview(id, interview) {
+   
     let daysCopy = [...state.days];
     const appointment = {
       ...state.appointments[id],
@@ -34,19 +35,21 @@ export default function useApplicationData(initial) {
       ...state.appointments,
       [id]: appointment
     };
+    spotsRemaining(state,id,false);
     return (
       axios.delete(`api/appointments/${id}`, appointment)
         .then((res) =>
           setState({
             ...state,
-            appointments,
-            days: spotsRemaining(daysCopy, id, state.appointments)
+            appointments
+        
           }))
+         
     )
   }
 
   function bookInterview(id, interview) {
-    let daysCopy = [...state.days];
+    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -55,26 +58,34 @@ export default function useApplicationData(initial) {
       ...state.appointments,
       [id]: appointment
     };
+    spotsRemaining(state,id,true);
     return (
       axios.put(`api/appointments/${id}`, appointment)
         .then((res) =>
           setState({
             ...state,
-            appointments,
-            days: spotsRemaining(daysCopy, id, state.appointments)
+            appointments
+            
           }))
+          
     )
   }
 
-  function spotsRemaining(daysCopy, id, appointment_s) {
-    let day = daysCopy.find(days => days.appointments.includes(id));
-    let spots=5;
-  
-      day.appointments.forEach(item =>{
-        console.log(appointment_s[item].interview);
-      })
-     
-      return daysCopy;
+  function spotsRemaining(state, id, book) {
+    let result = [];
+
+    const appointmentDay = state.days.filter(daysData =>
+      daysData.appointments.includes(id));
+    result = [...appointmentDay];
+    result[0].spots = 0;
+    appointmentDay[0].appointments.forEach(item => {
+      if (state.appointments[item].interview === null) {
+        console.log(state.appointments[item]);
+        result[0].spots += 1;
+      }
+    })
+    result[0].spots = book ? result[0].spots - 1 : result[0].spots + 1;
   }
+
   return { state, setDay, bookInterview, cancelInterview };
 }
