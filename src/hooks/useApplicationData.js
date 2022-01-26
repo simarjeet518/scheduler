@@ -73,14 +73,13 @@ export default function useApplicationData(initial) {
 
   function spotsRemaining(state, id, book) {
     let result = [];
-
     const appointmentDay = state.days.filter(daysData =>
-      daysData.appointments.includes(id));
+      daysData.appointments.includes(id)
+    );
     result = [...appointmentDay];
     result[0].spots = 0;
     appointmentDay[0].appointments.forEach(item => {
       if (state.appointments[item].interview === null) {
-        console.log(state.appointments[item]);
         result[0].spots += 1;
       }
     })
