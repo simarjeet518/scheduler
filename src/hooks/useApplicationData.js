@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useApplicationData(initial) {
@@ -24,8 +24,7 @@ export default function useApplicationData(initial) {
 
   const setDay = day => setState({ ...state, day });
 
-  function cancelInterview(id, interview) {
-   
+  function cancelInterview(id, interview) {  
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -40,17 +39,14 @@ export default function useApplicationData(initial) {
         .then((res) =>
           setState({
             ...state,
-            appointments
-        
+            appointments    
           }),
           spotsRemaining(state,id,false,true)
-         )
-         
+         )        
     )
   }
 
-  function bookInterview(id, interview, book) {
-    
+  function bookInterview(id, interview, book) {   
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -65,12 +61,10 @@ export default function useApplicationData(initial) {
         .then((res) =>
           setState({
             ...state,
-            appointments
-            
+            appointments       
           }),
           spotsRemaining(state,id,book,false)
-         )
-          
+         )        
     )
   }
 
