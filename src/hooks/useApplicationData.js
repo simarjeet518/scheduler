@@ -26,7 +26,6 @@ export default function useApplicationData(initial) {
 
   function cancelInterview(id, interview) {
    
-    let daysCopy = [...state.days];
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -35,7 +34,7 @@ export default function useApplicationData(initial) {
       ...state.appointments,
       [id]: appointment
     };
-    spotsRemaining(state,id,false);
+   
     return (
       axios.delete(`api/appointments/${id}`, appointment)
         .then((res) =>
@@ -43,12 +42,14 @@ export default function useApplicationData(initial) {
             ...state,
             appointments
         
-          }))
+          }),
+          spotsRemaining(state,id,false,true)
+         )
          
     )
   }
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, book) {
     
     const appointment = {
       ...state.appointments[id],
@@ -58,7 +59,7 @@ export default function useApplicationData(initial) {
       ...state.appointments,
       [id]: appointment
     };
-    spotsRemaining(state,id,true);
+   
     return (
       axios.put(`api/appointments/${id}`, appointment)
         .then((res) =>
@@ -66,24 +67,26 @@ export default function useApplicationData(initial) {
             ...state,
             appointments
             
-          }))
+          }),
+          spotsRemaining(state,id,book,false)
+         )
           
     )
   }
 
-  function spotsRemaining(state, id, book) {
+  function spotsRemaining(state, id, book, cancel) {
     let result = [];
     const appointmentDay = state.days.filter(daysData =>
       daysData.appointments.includes(id)
     );
     result = [...appointmentDay];
-    result[0].spots = 0;
-    appointmentDay[0].appointments.forEach(item => {
-      if (state.appointments[item].interview === null) {
-        result[0].spots += 1;
-      }
-    })
-    result[0].spots = book ? result[0].spots - 1 : result[0].spots + 1;
+    if (state.appointments[id].interview === null && book === true) {
+       return result[0].spots -= 1;  
+    }
+    if (state.appointments[id].interview !== null && cancel === true) {
+      return  result[0].spots += 1;
+    }
+
   }
 
   return { state, setDay, bookInterview, cancelInterview };

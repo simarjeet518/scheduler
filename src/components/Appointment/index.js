@@ -24,13 +24,15 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
+  function save(name, interviewer ) {
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING, true);
-    props.bookInterview(props.id, interview)
+    let book;
+    book = mode === CREATE? true : false ;
+    props.bookInterview(props.id, interview, book ) 
       .then(() => {
         transition(SHOW);
       })
