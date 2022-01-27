@@ -9,6 +9,7 @@ export default function useApplicationData(initial) {
     interviewers: {}
   });
 
+
   useEffect(() => {
     Promise.all([
       axios.get('api/days'),
@@ -22,7 +23,9 @@ export default function useApplicationData(initial) {
       })
   }, [])
 
+  
   const setDay = day => setState({ ...state, day });
+
 
   function cancelInterview(id) {  
     const appointment = {
@@ -45,6 +48,7 @@ export default function useApplicationData(initial) {
           }))       
      )
   }
+
 
   function bookInterview(id, interview) {   
     const appointment = {
@@ -84,7 +88,7 @@ export default function useApplicationData(initial) {
 
   const updateSpots = function(state, appointments){
 
-    const dayObj = state.days.find(day => day.name === state.day);
+    const dayObj = state.days.find(day => day.name === state.day);   //find day from state (modify spots) then replace 
     const spots = getSpotsForDay(dayObj, appointments);
     const day = {...dayObj, spots};
     

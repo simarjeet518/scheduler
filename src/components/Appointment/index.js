@@ -24,18 +24,20 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer ) {
+
+  function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING, true);
-    props.bookInterview(props.id, interview ) 
+    props.bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW);
       })
       .catch(error => transition(ERROR_SAVE, true));
   }
+  
 
   function confirmDelete() {
     transition(DELETING, true);
@@ -50,9 +52,9 @@ export default function Appointment(props) {
   return (
     <article className="appointment">
       <Header
-       time={props.time} 
+        time={props.time}
       />
-      
+
       {mode === EMPTY &&
         <Empty
           onAdd={() => transition(CREATE)}

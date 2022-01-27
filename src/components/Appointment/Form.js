@@ -21,6 +21,7 @@ function handleSubmit(event) {
   event.preventDefault();
 }
 
+// validate form before submit
 function validate() {
   if (student === "") {
     setError("Student name cannot be blank");
