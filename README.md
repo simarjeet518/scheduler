@@ -4,11 +4,11 @@
 
 ## Adding a new appointments
 
-![Add]()
+![Add](https://github.com/simarjeet518/scheduler/blob/master/docs/Add-new.png?raw=true)
 
 ## Delete Appointment
 
-![Delete](")
+![Delete](https://github.com/simarjeet518/scheduler/blob/master/docs/Delete.png?raw=true)
 
 ## Setup
 
