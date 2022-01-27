@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-### Interview Scheduler is a Web App built in ReactJS with Storybook, Cypress, and Jest to practice with ReactJS and modern web development.
+#### Interview Scheduler is a Web App built in ReactJS with Storybook, Cypress, and Jest to practice with ReactJS and modern web development.
 
 ## Adding a new appointments
 
@@ -13,6 +13,13 @@
 ## Setup
 
 Install dependencies with `npm install`.
+
+axios
+react
+cypress
+storybook
+classNames
+
 
 ## Running Webpack Development Server
 
