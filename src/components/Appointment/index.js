@@ -30,9 +30,7 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVING, true);
-    let book;
-    book = mode === CREATE? true : false ;
-    props.bookInterview(props.id, interview, book ) 
+    props.bookInterview(props.id, interview ) 
       .then(() => {
         transition(SHOW);
       })

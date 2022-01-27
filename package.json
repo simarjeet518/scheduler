@@ -13,6 +13,7 @@
     "react-scripts": "3.0.0"
   },
   "scripts": {
+    "cypress": "cypress open",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,6 +43,8 @@
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
     "babel-loader": "^8.0.5",
+    "chai-colors": "^1.0.1",
+    "cypress": "^9.3.1",
     "node-sass": "^4.14.0",
     "prop-types": "^15.8.1",
     "react-test-renderer": "^16.9.0"
